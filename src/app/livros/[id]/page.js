@@ -1,7 +1,14 @@
 import { getLivro } from "@/lib/livros";
 import { notFound } from "next/navigation";
 
-//export const instant = false;
+export async function generateMetadata({ params }){
+    const { id } = await params;
+    const livro = await getLivro(id);
+    return { title: livro ? `${livro.titulo} | Catálogo` : "Livro não encontrado" };
+}
+
+
+export const instant = false;
 
 export default async function DetalheLivroPage({ params }){
     const { id } = await params;
